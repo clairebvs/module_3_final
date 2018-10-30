@@ -4,7 +4,7 @@ describe 'GET /api/v1/games/:id' do
   it 'returns a json response including game data' do
     josh = User.create(name: "Josh")
     sal = User.create(name: "Sal")
-    game = Game.create(id: 1, player_1_id: josh, player_2_id: sal)
+    game = Game.create!(player_1_id: josh.id, player_2_id: sal.id)
 
     josh.plays.create(game_id: game.id, word: "sal", score: 3)
     josh.plays.create(game_id: game.id, word: "zoo", score: 12)
@@ -17,7 +17,7 @@ describe 'GET /api/v1/games/:id' do
 
     game = JSON.parse(response.body, symbolize_names: true)
 
-    expect(game.count).to eq 1
+    expect(game.count).to eq 2
     expect(game).to have_key(:game_id)
     expect(game).to have_key(:scores)
 
