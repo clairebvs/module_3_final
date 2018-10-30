@@ -7,7 +7,7 @@
 
 <h1>Examples for using <%= @word_facade.word %> </h1>
 
-<%= @word_facade.sentences.each do |sentence| %>
+<% @word_facade.sentences.each do |sentence| %>
   <ul class="sentence">
     <li> <%= sentence.text %></li>
   </ul>
