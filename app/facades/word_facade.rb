@@ -14,13 +14,21 @@ class WordFacade
 
     response = conn.get("api/v1/entries/en/strong/sentences")
 
-    x = JSON.parse(response.body, symbolize_names: true)[:results][0][:lexicalEntries][0][:sentences].map do |sentence|
-      array_sentences_brit_can = []
+    sentences_data = JSON.parse(response.body, symbolize_names: true)[:results][0][:lexicalEntries][0][:sentences].map do |sentence|
       if sentence[:regions] == ["British"] || sentence[:regions] == ["Canadian"]
         sentence
       end
     end
-      require "pry"; binding.pry
 
+    array_sentences_brit_can = []
+    sentences_data.map do |sentence|
+      if sentence != nil
+        array_sentences_brit_can << sentence
+      end
+    end
+
+    array_sentences_brit_can.map do |sentence_data|
+      Sentence.new(sentence_data)
+    end
   end
 end
