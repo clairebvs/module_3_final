@@ -1,0 +1,14 @@
+<%= form_tag root_path, method: :get do %>
+  <%= label_tag :q %>
+  <%= text_field_tag :q %>
+
+  <%= submit_tag "Submit" %>
+<% end %>
+
+<h1>Examples for using <%= @word_facade.word %> </h1>
+
+<%= @word_facade.sentences.each do |sentence| %>
+  <ul class="sentence">
+    <li> <%= sentence %></li>
+  </ul>
+<% end %>
