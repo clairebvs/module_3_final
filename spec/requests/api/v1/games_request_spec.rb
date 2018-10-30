@@ -31,7 +31,8 @@ describe 'POST api/v1/games/:id/plays' do
   it 'update the score of the current game' do
     josh = User.create(name: "Josh")
     sal = User.create(name: "Sal")
-    game = Game.create!(player_1_id: josh.id, player_2_id: sal.id)
+    game = Game.create(player_1_id: josh.id, player_2_id: sal.id)
+    # require "pry"; binding.pry
 
     josh.plays.create(game_id: game.id, word: "sal", score: 3)
     josh.plays.create(game_id: game.id, word: "zoo", score: 12)
@@ -46,13 +47,12 @@ describe 'POST api/v1/games/:id/plays' do
     expect(response.status).to eq 201
     # Then I should receive a 201 Created Response
 
-    get "/api/v1/games/1"
+    get "/api/v1/games/#{game.id}"
 
     expect(response.status).to eq 200
+    game = JSON.parse(response.status)
 
-    game = JSON.parse(response.status, symbolize_names: true)
-
-    expect(game[:scores][0][:score]).to eq(17)
+    expect(game["scores"]).to eq(17)
 
 # ```{
 #   "game_id":1,
