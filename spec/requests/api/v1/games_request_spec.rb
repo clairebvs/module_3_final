@@ -6,12 +6,12 @@ describe 'GET /api/v1/games/:id' do
     sal = User.create(name: "Sal")
     game = Game.create(id: 1, player_1_id: josh, player_2_id: sal)
 
-    josh.plays.create(game: game, word: "sal", score: 3)
-    josh.plays.create(game: game, word: "zoo", score: 12)
-    sal.plays.create(game: game, word: "josh", score: 14)
-    sal.plays.create(game: game, word: "no", score: 2)
+    josh.plays.create(game_id: game.id, word: "sal", score: 3)
+    josh.plays.create(game_id: game.id, word: "zoo", score: 12)
+    sal.plays.create(game_id: game.id, word: "josh", score: 14)
+    sal.plays.create(game_id: game.id, word: "no", score: 2)
 
-    get "api/v1/games/#{game.id}"
+    get "/api/v1/games/#{game.id}"
 
     expect(response.status).to eq 200
 
